@@ -27,10 +27,6 @@ package "lighttpd" do
 	action :install
 end
 
-case node[:platform]
-	when "redhat", "fedora", "centos"
-	end
-
 service "lighttpd" do
   # need to support more platforms, someday, when I have the time
 case node[:platform]
@@ -68,6 +64,22 @@ cookbook_file "/usr/share/lighttpd/include-sites-enabled.pl" do
   owner "root"
   group "root"
 end
+
+case node[:platform]
+	when "redhat", "fedora", "centos"
+		cookbook_file "/usr/share/lighttpd/create-mime.assign.pl" do
+			source "create-mime.assign.pl"
+			mode 0755
+			owner "root"
+			group "root"
+		end
+		cookbook_file "/usr/share/lighttpd/include-conf-enabled.pl" do
+			source "include-conf-enabled.pl"
+			mode 0755
+			owner "root"
+			group "root"
+		end
+	end
 
 # make sites-available and sites-enabled
 directory "/etc/lighttpd/sites-available" do
