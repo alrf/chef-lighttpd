@@ -19,8 +19,16 @@
 
 default[:lighttpd][:dir]     = "/etc/lighttpd"
 default[:lighttpd][:log_dir] = "/var/log/lighttpd"
-default[:lighttpd][:user]    = "www-data"
-default[:lighttpd][:group]   = "www-data"
+
+case node[:platform]
+  when "redhat", "fedora", "centos"
+    default[:lighttpd][:user]    = "lighttpd"
+    default[:lighttpd][:group]   = "lighttpd"
+  when "ubuntu", "debian"
+    default[:lighttpd][:user]    = "www-data"
+    default[:lighttpd][:group]   = "www-data"
+  end
+
 default[:lighttpd][:binary]  = "/usr/sbin/lighttpd"
 default[:lighttpd][:doc_root] = "/var/www"
 default[:lighttpd][:max_worker] = 1

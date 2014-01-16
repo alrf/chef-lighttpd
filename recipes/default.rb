@@ -38,13 +38,28 @@ case node[:platform]
     service_name "lighttpd"
     restart_command "/usr/sbin/invoke-rc.d lighttpd restart && sleep 1"
     reload_command "/usr/sbin/invoke-rc.d lighttpd restart && sleep 1"
+  when "redhat","fedora","centos"
+    service_name "lighttpd"
+    restart_command "service lighttpd restart && sleep 1"
+    reload_command "service lighttpd restart && sleep 1"
   end
   supports value_for_platform(
     "debian" => { "4.0" => [ :restart, :reload ], "default" => [ :restart, :reload, :status ] },
     "ubuntu" => { "default" => [ :restart, :reload, :status ] },
-    "default" => { "default" => [:restart, :reload ] }
+    "default" => { "default" => [:restart, :reload ] },
+    "redhat" => { "default" => [ :restart, :reload, :status ] },
+    "fedora" => { "default" => [ :restart, :reload, :status ] },
+    "centos" => { "default" => [ :restart, :reload, :status ] }
   )
   action :enable
+end
+
+# make /usr/share/lighttpd
+directory "/usr/share/lighttpd" do
+  action :create
+  mode 0755
+  owner "root"
+  group "root"
 end
 
 cookbook_file "/usr/share/lighttpd/include-sites-enabled.pl" do
@@ -83,3 +98,9 @@ template "/etc/lighttpd/lighttpd.conf" do
   notifies :restart, resources(:service => "lighttpd"), :delayed
 end
 
+case node[:platform]
+  when "redhat", "fedora", "centos"
+    service "lighttpd" do
+      action :start
+    end
+  end
