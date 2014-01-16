@@ -21,7 +21,7 @@ default[:lighttpd][:dir]     = "/etc/lighttpd"
 default[:lighttpd][:log_dir] = "/var/log/lighttpd"
 
 case node[:platform]
-  when "redhat", "fedora", "centos"
+  when "redhat", "fedora", "centos", "amazon", "scientific"
     default[:lighttpd][:user]    = "lighttpd"
     default[:lighttpd][:group]   = "lighttpd"
   when "ubuntu", "debian"

@@ -18,7 +18,7 @@
 #
 
 case node[:platform]
-	when "redhat", "fedora", "centos"
+	when "redhat","fedora","centos","amazon","scientific"
 		include_recipe "yum::epel"
 	end
 
@@ -34,7 +34,7 @@ case node[:platform]
     service_name "lighttpd"
     restart_command "/usr/sbin/invoke-rc.d lighttpd restart && sleep 1"
     reload_command "/usr/sbin/invoke-rc.d lighttpd restart && sleep 1"
-  when "redhat","fedora","centos"
+  when "redhat","fedora","centos","amazon","scientific"
     service_name "lighttpd"
     restart_command "service lighttpd restart && sleep 1"
     reload_command "service lighttpd restart && sleep 1"
@@ -66,7 +66,7 @@ cookbook_file "/usr/share/lighttpd/include-sites-enabled.pl" do
 end
 
 case node[:platform]
-	when "redhat", "fedora", "centos"
+	when "redhat","fedora","centos","amazon","scientific"
 		cookbook_file "/usr/share/lighttpd/create-mime.assign.pl" do
 			source "create-mime.assign.pl"
 			mode 0755
@@ -107,11 +107,11 @@ template "/etc/lighttpd/lighttpd.conf" do
     :url_rewrites => node[:lighttpd][:url_rewrites],
     :url_redirects => node[:lighttpd][:url_redirects]
   )
-  notifies :restart, resources(:service => "lighttpd"), :delayed
+  notifies :restart, "service[lighttpd]", :delayed
 end
 
 case node[:platform]
-  when "redhat", "fedora", "centos"
+  when "redhat","fedora","centos","amazon","scientific"
     service "lighttpd" do
       action :start
     end

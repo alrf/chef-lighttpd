@@ -31,7 +31,7 @@ template "/etc/lighttpd/conf-available/10-mysql-vhost.conf" do
   owner "root"
   group "root"
   mode "0644"
-  notifies :restart, resources(:service => "lighttpd"), :delayed
+  notifies :restart, "service[lighttpd]", :delayed
 end
 
 lighttpd_module "mysql-vhost"

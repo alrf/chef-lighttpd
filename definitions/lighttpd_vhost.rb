@@ -35,7 +35,7 @@ define :lighttpd_vhost, :template => "lighttpd_vhost.conf.erb" do
 			:params => params
 		)
 		if File.exists?("#{node[:lighttpd][:dir]}/sites-enabled/#{vhost_name}.conf")
-			notifies :restart, resources(:service => "lighttpd"), :delayed
+			notifies :restart, "service[lighttpd]", :delayed
 		end
 	end
 

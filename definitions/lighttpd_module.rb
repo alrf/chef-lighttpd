@@ -25,6 +25,6 @@ define :lighttpd_module, :enable => true do
     code <<-EOH
       #{module_command} #{params[:name]}
     EOH
-    notifies :restart, resources(:service => "lighttpd"), :delayed
+    notifies :restart, "service[lighttpd]", :delayed
   end
 end
