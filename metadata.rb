@@ -6,6 +6,9 @@ description      "Installs/Configures Lighttpd"
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version          "0.3.0"
 
+# needs platform condition
+depends "yum"
+
 attribute "lighttpd",
   :display_name => "Lighttpd perl Hash",
   :description => "Hash of lighttpd attributes",

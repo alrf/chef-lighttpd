@@ -17,9 +17,19 @@
 # limitations under the License.
 #
 
+case node[:platform]
+	when "redhat", "fedora", "centos"
+		include_recipe "yum::epel"
+	end
+
+
 package "lighttpd" do
 	action :install
 end
+
+case node[:platform]
+	when "redhat", "fedora", "centos"
+	end
 
 service "lighttpd" do
   # need to support more platforms, someday, when I have the time
