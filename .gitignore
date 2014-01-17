@@ -3,3 +3,7 @@
 *~
 .DS_Store
 .vagrant
+Berksfile.lock
+.kitchen
+Gemfile.lock
+

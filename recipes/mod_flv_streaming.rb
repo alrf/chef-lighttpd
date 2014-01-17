@@ -17,4 +17,4 @@
 # limitations under the License.
 #
 
-lighttpd_module "flv-streaming"
+lighttpd_module 'flv-streaming'

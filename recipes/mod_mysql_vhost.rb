@@ -17,7 +17,7 @@
 # limitations under the License.
 #
 
-package "lighttpd-mod-mysql-vhost" do
+package 'lighttpd-mod-mysql-vhost' do
   action :install
 end
 
@@ -26,12 +26,12 @@ end
 # username, password, etc. The template is provided as a reference, however, if
 # you want to just use attributes.
 
-template "/etc/lighttpd/conf-available/10-mysql-vhost.conf" do
-  source "mysql_vhost.conf.erb"
-  owner "root"
-  group "root"
-  mode "0644"
-  notifies :restart, "service[lighttpd]", :delayed
+template '/etc/lighttpd/conf-available/10-mysql-vhost.conf' do
+  source 'mysql_vhost.conf.erb'
+  owner 'root'
+  group 'root'
+  mode '0644'
+  notifies :restart, 'service[lighttpd]', :delayed
 end
 
-lighttpd_module "mysql-vhost"
+lighttpd_module 'mysql-vhost'

@@ -17,31 +17,27 @@
 #
 # Adapted from web_app in apache2 recipe
 
-define :lighttpd_vhost, :template => "lighttpd_vhost.conf.erb" do
-	vhost_name = params[:server_name]
-	enabled = params[:enable]
-	include_recipe "lighttpd"
+define :lighttpd_vhost, :template => 'lighttpd_vhost.conf.erb' do
+  vhost_name = params[:server_name]
+  enabled = params[:enable]
+  include_recipe 'lighttpd'
 
-	template "#{node[:lighttpd][:dir]}/sites-available/#{vhost_name}.conf" do
-		source params[:template]
-		owner "root"
-		group "root"
-		mode 0644
-		if params[:cookbook]
-			cookbook params[:cookbook]
-		end
-		variables(
-			:vhost_name => vhost_name,
-			:params => params
-		)
-		if File.exists?("#{node[:lighttpd][:dir]}/sites-enabled/#{vhost_name}.conf")
-			notifies :restart, "service[lighttpd]", :delayed
-		end
-	end
+  template "#{node[:lighttpd][:dir]}/sites-available/#{vhost_name}.conf" do
+    source params[:template]
+    owner 'root'
+    group 'root'
+    mode 0644
+    cookbook params[:cookbook] if params[:cookbook]
 
-	lighttpd_site "#{vhost_name}.conf" do
-		server_name vhost_name
-		enable enabled
-	end
+    variables(:vhost_name => vhost_name,
+              :params => params)
+    notifies :restart, 'service[lighttpd]', :delayed if
+      File.exists?("#{node[:lighttpd][:dir]}/sites-enabled/#{vhost_name}.conf")
+  end
+
+  lighttpd_site "#{vhost_name}.conf" do
+    server_name vhost_name
+    enable enabled
+  end
 
 end

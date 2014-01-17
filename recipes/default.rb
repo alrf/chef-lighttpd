@@ -18,101 +18,103 @@
 #
 
 case node[:platform]
-	when "redhat","fedora","centos","amazon","scientific"
-		include_recipe "yum::epel"
-	end
-
-
-package "lighttpd" do
-	action :install
+when 'redhat', 'fedora', 'centos', 'amazon', 'scientific', 'oracle'
+  include_recipe 'yum::epel'
 end
 
-service "lighttpd" do
+package 'lighttpd' do
+  action :install
+end
+
+service 'lighttpd' do
   # need to support more platforms, someday, when I have the time
-case node[:platform]
-  when "debian","ubuntu"
-    service_name "lighttpd"
-    restart_command "/usr/sbin/invoke-rc.d lighttpd restart && sleep 1"
-    reload_command "/usr/sbin/invoke-rc.d lighttpd restart && sleep 1"
-  when "redhat","fedora","centos","amazon","scientific"
-    service_name "lighttpd"
-    restart_command "service lighttpd restart && sleep 1"
-    reload_command "service lighttpd restart && sleep 1"
+  case node[:platform]
+  when 'debian', 'ubuntu'
+    service_name 'lighttpd'
+    restart_command '/usr/sbin/invoke-rc.d lighttpd restart && sleep 1'
+    reload_command '/usr/sbin/invoke-rc.d lighttpd restart && sleep 1'
+  when 'redhat', 'fedora', 'centos', 'amazon', 'scientific', 'oracle'
+    service_name 'lighttpd'
+    restart_command 'service lighttpd restart && sleep 1'
+    reload_command 'service lighttpd restart && sleep 1'
   end
   supports value_for_platform(
-    "debian" => { "4.0" => [ :restart, :reload ], "default" => [ :restart, :reload, :status ] },
-    "ubuntu" => { "default" => [ :restart, :reload, :status ] },
-    "default" => { "default" => [:restart, :reload ] },
-    "redhat" => { "default" => [ :restart, :reload, :status ] },
-    "fedora" => { "default" => [ :restart, :reload, :status ] },
-    "centos" => { "default" => [ :restart, :reload, :status ] }
+    'debian' => { '4.0' => [:restart, :reload], 'default' => [:restart, :reload, :status] },
+    'ubuntu' => { 'default' => [:restart, :reload, :status] },
+    'default' => { 'default' => [:restart, :reload] },
+    'redhat' => { 'default' => [:restart, :reload, :status] },
+    'fedora' => { 'default' => [:restart, :reload, :status] },
+    'centos' => { 'default' => [:restart, :reload, :status] },
+    'amazon' => { 'default' => [:restart, :reload, :status] },
+    'scientific' => { 'default' => [:restart, :reload, :status] },
+    'oracle' => { 'default' => [:restart, :reload, :status] }
   )
   action :enable
 end
 
 # make /usr/share/lighttpd
-directory "/usr/share/lighttpd" do
+directory '/usr/share/lighttpd' do
   action :create
-  mode 0755
-  owner "root"
-  group "root"
+  mode '0755'
+  owner 'root'
+  group 'root'
 end
 
-cookbook_file "/usr/share/lighttpd/include-sites-enabled.pl" do
-  source "include-sites-enabled.pl"
-  mode 0755
-  owner "root"
-  group "root"
+cookbook_file '/usr/share/lighttpd/include-sites-enabled.pl' do
+  source 'include-sites-enabled.pl'
+  mode '0755'
+  owner 'root'
+  group 'root'
 end
 
 case node[:platform]
-	when "redhat","fedora","centos","amazon","scientific"
-		cookbook_file "/usr/share/lighttpd/create-mime.assign.pl" do
-			source "create-mime.assign.pl"
-			mode 0755
-			owner "root"
-			group "root"
-		end
-		cookbook_file "/usr/share/lighttpd/include-conf-enabled.pl" do
-			source "include-conf-enabled.pl"
-			mode 0755
-			owner "root"
-			group "root"
-		end
-	end
+when 'redhat', 'fedora', 'centos', 'amazon', 'scientific', 'oracle'
+  cookbook_file '/usr/share/lighttpd/create-mime.assign.pl' do
+    source 'create-mime.assign.pl'
+    mode '0755'
+    owner 'root'
+    group 'root'
+  end
+  cookbook_file '/usr/share/lighttpd/include-conf-enabled.pl' do
+    source 'include-conf-enabled.pl'
+    mode '0755'
+    owner 'root'
+    group 'root'
+  end
+end
 
 # make sites-available and sites-enabled
-directory "/etc/lighttpd/sites-available" do
+directory '/etc/lighttpd/sites-available' do
   action :create
-  mode 0755
-  owner "root"
-  group "root"
+  mode '0755'
+  owner 'root'
+  group 'root'
 end
 
-directory "/etc/lighttpd/sites-enabled" do
+directory '/etc/lighttpd/sites-enabled' do
   action :create
-  mode 0755
-  owner "root"
-  group "root"
+  mode '0755'
+  owner 'root'
+  group 'root'
 end
 
-template "/etc/lighttpd/lighttpd.conf" do
-  source "lighttpd.conf.erb"
-  owner "root"
-  group "root"
-  mode "0644"
+template '/etc/lighttpd/lighttpd.conf' do
+  source 'lighttpd.conf.erb'
+  owner 'root'
+  group 'root'
+  mode '0644'
   variables(
     :extforward_headers => node[:lighttpd][:extforward_headers],
     :extforward_forwarders => node[:lighttpd][:extforward_forwarders],
     :url_rewrites => node[:lighttpd][:url_rewrites],
     :url_redirects => node[:lighttpd][:url_redirects]
   )
-  notifies :restart, "service[lighttpd]", :delayed
+  notifies :restart, 'service[lighttpd]', :delayed
 end
 
 case node[:platform]
-  when "redhat","fedora","centos","amazon","scientific"
-    service "lighttpd" do
-      action :start
-    end
+when 'redhat', 'fedora', 'centos', 'amazon', 'scientific', 'oracle'
+  service 'lighttpd' do
+    action :start
   end
+end

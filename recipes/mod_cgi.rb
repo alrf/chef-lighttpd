@@ -17,4 +17,4 @@
 # limitations under the License.
 #
 
-lighttpd_module "cgi"
+lighttpd_module 'cgi'

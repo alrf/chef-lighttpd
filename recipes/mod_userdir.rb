@@ -17,4 +17,4 @@
 # limitations under the License.
 #
 
-lighttpd_module "userdir"
+lighttpd_module 'userdir'

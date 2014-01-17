@@ -17,8 +17,8 @@
 # limitations under the License.
 #
 
-package "lighttpd-mod-trigger-b4-dl" do
+package 'lighttpd-mod-trigger-b4-dl' do
   action :install
 end
 
-lighttpd_module "trigger-b4-dl"
+lighttpd_module 'trigger-b4-dl'

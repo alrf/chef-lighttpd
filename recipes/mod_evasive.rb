@@ -17,4 +17,4 @@
 # limitations under the License.
 #
 
-lighttpd_module "evasive"
+lighttpd_module 'evasive'

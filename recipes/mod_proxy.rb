@@ -17,12 +17,12 @@
 # limitations under the License.
 #
 
-lighttpd_module "proxy"
+lighttpd_module 'proxy'
 
-template "/etc/lighttpd/conf-available/10-proxy.conf" do
-  source "proxy.conf.erb"
-  owner "root"
-  group "root"
-  mode "0644"
-  notifies :restart, "service[lighttpd]", :delayed
+template '/etc/lighttpd/conf-available/10-proxy.conf' do
+  source 'proxy.conf.erb'
+  owner 'root'
+  group 'root'
+  mode '0644'
+  notifies :restart, 'service[lighttpd]', :delayed
 end

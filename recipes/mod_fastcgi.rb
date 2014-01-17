@@ -17,4 +17,4 @@
 # limitations under the License.
 #
 
-lighttpd_module "fastcgi"
+lighttpd_module 'fastcgi'

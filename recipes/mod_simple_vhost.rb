@@ -17,4 +17,4 @@
 # limitations under the License.
 #
 
-lighttpd_module "simple-vhost"
+lighttpd_module 'simple-vhost'

@@ -17,4 +17,4 @@
 # limitations under the License.
 #
 
-lighttpd_module "evhost"
+lighttpd_module 'evhost'

@@ -1,0 +1,48 @@
+---
+driver_plugin: vagrant
+
+platforms:
+- name: centos-6.4
+  driver_plugin: vagrant
+
+- name: ubuntu-10.04
+  driver_plugin: vagrant
+  run_list:
+  - recipe[apt]
+
+- name: ubuntu-12.04
+  driver_plugin: vagrant
+  run_list:
+  - recipe[apt]
+
+suites:
+  - name: default
+    run_list:
+      - recipe[lighttpd::default]
+  - name: modules
+    run_list:
+      - recipe[lighttpd::default]
+    attributes:
+      lighttpd:
+        modules:
+          - lighttpd::mod_auth
+          - lighttpd::mod_cgu
+          - lighttpd::mod_cml
+          - lighttpd::mod_evasive
+          - lighttpd::mod_evhost
+          - lighttpd::mod_expire
+          - lighttpd::mod_fastcgi
+          - lighttpd::mod_flv_streaming
+          - lighttpd::mod_magnet
+          - lighttpd::mod_mysql_vhost
+          - lighttpd::mod_no_www
+          - lighttpd::mod_proxy
+          - lighttpd::mod_rrdtool
+          - lighttpd::mod_simple_vhost
+          - lighttpd::mod_ssi
+          - lighttpd::mod_ssl
+          - lighttpd::mod_status
+          - lighttpd::mod_trigger_b4_dl
+          - lighttpd::mod_userdir
+          - lighttpd::mod_usertrack
+          - lighttpd::mod_webdav

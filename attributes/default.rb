@@ -17,38 +17,38 @@
 # limitations under the License.
 #
 
-default[:lighttpd][:dir]     = "/etc/lighttpd"
-default[:lighttpd][:log_dir] = "/var/log/lighttpd"
+default[:lighttpd][:dir]     = '/etc/lighttpd'
+default[:lighttpd][:log_dir] = '/var/log/lighttpd'
 
 case node[:platform]
-  when "redhat", "fedora", "centos", "amazon", "scientific"
-    default[:lighttpd][:user]    = "lighttpd"
-    default[:lighttpd][:group]   = "lighttpd"
-  when "ubuntu", "debian"
-    default[:lighttpd][:user]    = "www-data"
-    default[:lighttpd][:group]   = "www-data"
-  end
+when 'redhat', 'fedora', 'centos', 'amazon', 'scientific'
+  default[:lighttpd][:user]    = 'lighttpd'
+  default[:lighttpd][:group]   = 'lighttpd'
+when 'ubuntu', 'debian'
+  default[:lighttpd][:user]    = 'www-data'
+  default[:lighttpd][:group]   = 'www-data'
+end
 
-default[:lighttpd][:binary]  = "/usr/sbin/lighttpd"
-default[:lighttpd][:doc_root] = "/var/www"
+default[:lighttpd][:binary]  = '/usr/sbin/lighttpd'
+default[:lighttpd][:doc_root] = '/var/www'
 default[:lighttpd][:max_worker] = 1
-default[:lighttpd][:pid_file] = "/var/run/lighttpd.pid"
-default[:lighttpd][:encoding] = "utf-8"
-default[:lighttpd][:dir_listing] = "disable"
+default[:lighttpd][:pid_file] = '/var/run/lighttpd.pid'
+default[:lighttpd][:encoding] = 'utf-8'
+default[:lighttpd][:dir_listing] = 'disable'
 default[:lighttpd][:max_fds] = 2048
 default[:lighttpd][:max_connections] = 1024
-default[:lighttpd][:use_ipv6] = "enable"
+default[:lighttpd][:use_ipv6] = 'enable'
 default[:lighttpd][:compress][:use_compress] = true
-default[:lighttpd][:compress][:cache_dir] = "/var/tmp/lighttpd/cache/compress"
-default[:lighttpd][:compress][:mime_types] = [ "text/html", "text/plain", "text/xml" ]
-default[:lighttpd][:compress][:mime_types_non_ie6] = [ "text/css", "text/javascript", "application/javascript" ]
-default[:lighttpd][:deploy_type] = "testing"
-default[:lighttpd][:debug][:core_files] = "disable"
-default[:lighttpd][:debug][:log_request_handling] = "disable"
-default[:lighttpd][:debug][:log_state_handling] = "disable"
-default[:lighttpd][:debug][:log_condition_handling] = "disable"
-default[:lighttpd][:debug][:log_response_header] = "disable"
-default[:lighttpd][:debug][:proxy] = "disable"
-default[:lighttpd][:debug][:dump_unknown_headers] = "disable"
-default[:lighttpd][:url_rewrites] = { }
-default[:lighttpd][:url_redirects] = { }
+default[:lighttpd][:compress][:cache_dir] = '/var/tmp/lighttpd/cache/compress'
+default[:lighttpd][:compress][:mime_types] = ['text/html', 'text/plain', 'text/xml']
+default[:lighttpd][:compress][:mime_types_non_ie6] = ['text/css', 'text/javascript', 'application/javascript']
+default[:lighttpd][:deploy_type] = 'testing'
+default[:lighttpd][:debug][:core_files] = 'disable'
+default[:lighttpd][:debug][:log_request_handling] = 'disable'
+default[:lighttpd][:debug][:log_state_handling] = 'disable'
+default[:lighttpd][:debug][:log_condition_handling] = 'disable'
+default[:lighttpd][:debug][:log_response_header] = 'disable'
+default[:lighttpd][:debug][:proxy] = 'disable'
+default[:lighttpd][:debug][:dump_unknown_headers] = 'disable'
+default[:lighttpd][:url_rewrites] = {}
+default[:lighttpd][:url_redirects] = {}

@@ -18,13 +18,13 @@
 # Activate or deactivate a lighttpd module
 
 define :lighttpd_module, :enable => true do
-  module_command = (params[:enable]) ? "lighttpd-enable-mod" : "lighttpd-disable-mod"
-  include_recipe "lighttpd"
-  bash "run_lighty_mod" do
-    user "root"
+  module_command = params[:enable] ? 'lighttpd-enable-mod' : 'lighttpd-disable-mod'
+  include_recipe 'lighttpd'
+  bash 'run_lighty_mod' do
+    user 'root'
     code <<-EOH
       #{module_command} #{params[:name]}
     EOH
-    notifies :restart, "service[lighttpd]", :delayed
+    notifies :restart, 'service[lighttpd]', :delayed
   end
 end
