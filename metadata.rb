@@ -12,6 +12,7 @@ depends 'apt',             '~> 2.2'
 depends 'ohai',            '~> 1.1'
 depends 'runit',           '~> 1.2'
 #depends 'yum',             '~> 3.0'
+depends 'yum'
 depends 'yum-epel'
 
 supports 'amazon'
