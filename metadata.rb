@@ -11,8 +11,8 @@ recipe 'lighttpd', 'Installs and configures the lighttpd webserver, a light, fas
 depends 'apt',             '~> 2.2'
 depends 'ohai',            '~> 1.1'
 depends 'runit',           '~> 1.2'
-depends 'yum',             '~> 3.0'
-depends 'yum-epel'
+#depends 'yum',             '~> 3.0'
+#depends 'yum-epel'
 
 supports 'amazon'
 supports 'centos'
