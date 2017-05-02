@@ -19,7 +19,7 @@
 
 case node[:platform]
 when 'redhat', 'fedora', 'centos', 'amazon', 'scientific', 'oracle'
-  include_recipe 'yum::epel'
+  #include_recipe 'yum::epel'
 end
 
 package 'lighttpd' do
